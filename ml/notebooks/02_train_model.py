@@ -53,3 +53,16 @@ print(classification_report(Y_test, Y_pred))
 print("\nConfusion Matrix:")
 print(confusion_matrix(Y_test, Y_pred, labels=["Low", "Medium", "High"]))
 
+import pandas as pd
+
+# Get feature importance scores from the trained model
+importances = model.feature_importances_
+
+# Pair each importance score with its feature name, and sort from most to least important
+feature_importance_df = pd.DataFrame({
+    "feature": feature_columns,
+    "importance": importances
+}).sort_values(by="importance", ascending=False)
+
+print("\nFeature Importance (most to least important):")
+print(feature_importance_df.to_string(index=False))
